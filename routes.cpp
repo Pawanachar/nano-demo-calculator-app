@@ -1,46 +1,21 @@
-#include "crow_all.h"
-
 crow::response greet()
 {
-    return crow::response{"Hello world"};
+    return crow::response{"Hello World!"};
+    return crow::response{""};
 }
-
 crow::response add(const crow::request &req)
 {
     auto input = crow::json::load(req.body);
-
-    if (!input)
-    {
-        return crow::response(400, "Bad Request: Invalid JSON");
-    }
-
-    int a = input["a"].i();
-    int b = input["b"].i();
-    int result = a + b;
-
-    crow::json::wvalue responseJson;
-    responseJson["result"] = result;
-
-    return crow::response{responseJson};
+    crow::json::wvalue result;
+    result["result"] = input["first"].i() + input["second"].i();
+    return result;
+    return crow::response{""};
 }
-
 crow::response subtract(const crow::request &req)
 {
     auto input = crow::json::load(req.body);
-
-    if (!input)
-    {
-        return crow::response(400, "Bad Request: Invalid JSON");
-    }
-
-    int a = input["a"].i();
-    int b = input["b"].i();
-    int result = a - b;
-
-    crow::json::wvalue responseJson;
-    responseJson["result"] = result;
-
-    return crow::response{responseJson};
+    crow::json::wvalue result;
+    result["result"] = input["first"].i() - input["second"].i();
+    return result;
+    return crow::response{""};
 }
-
-
